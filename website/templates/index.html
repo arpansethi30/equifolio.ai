@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+        <div class="content">
+          <div  style="width: 50%">
+            <h1>Invest in your future with Equifolio.ai</h1>
+            <p class="par" >
+              Invest in your future with Equifolio.ai! Our AI-powered platform creates personalized stock portfolios for long-term investment based on your risk tolerance and goals. Diversify your portfolio and access a range of assets you might not have been able to before. Get real-time updates and insights to make informed investment decisions. Start investing with confidence today!
+            </p>
+          </div>
+                <button class="cn"><a href="#">JOIN US</a></button>
+                <div class="form">
+                  <form method="POST" action="/login">
+                    <h3 align="center">Login</h3>
+                    <br>
+                    <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="Enter email"
+                      />
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                      />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <!-- sign up -->
+                    <br>
+                    <br>
+                   <p>Not a user? <a href="/sign-up"style="color: #fff;">Sign Up</a></p>
+                  </form>
+                  </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+  {% endblock %}

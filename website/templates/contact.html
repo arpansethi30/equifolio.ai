@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<div class="content">
+    <h1 align="center">ContactUs</h1>
+    <ul class="list-group list-group-flush" id="ContactUs">
+    {% for ContactUs in user.ContactUs %}
+    <li class="list-group-item">
+        {{ ContactUs.data }}
+        <button type="button" class="close" onClick="deleteContactUs({{ ContactUs.id }})">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    {% endfor %}
+    </ul>
+    <form method="POST">
+    <textarea name="ContactUs" id="ContactUs" class="form-control"></textarea>
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add ContactUs</button>
+    </div>
+    </form>
+</div>
+{% endblock %}
