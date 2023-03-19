@@ -8,12 +8,18 @@
 </head>
 
 <body>
-    <h1>Enter your data</h1>
-    <form action="/process" method="POST">
-        <label for="data">Data:</label>
-        <input type="text" id="data" name="data" required>
-        <input type="submit" value="Submit">
-    </form>
+    <div>
+        <h1>Enter your data</h1>
+        <form action="/manam" method="POST">
+            <label for="data">Data:</label>
+            <input type="text" id="data" name="data" required>
+            <input type="submit" value="Submit">
+        </form>
+        {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+        {% endif %}
+    </div>
 </body>
 
 </html>

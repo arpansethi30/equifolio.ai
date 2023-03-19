@@ -46,7 +46,11 @@ def boxes():
 
 @views.route("/investopedia", methods=["GET", "POST"])
 def investopedia():
-    return render_template("investopedia.html", user=current_user)
+    result = None
+    if request.method == "POST":
+        data = request.form["data"]
+        result = my_function(data)
+    return render_template("investopedia.html", result=result, user=current_user)
 
 
 @views.route("/contact", methods=["GET", "POST"])
@@ -72,13 +76,22 @@ def about():
     return render_template("AboutUs.html", user=current_user)
 
 
-@views.route("/manam")
+# @views.route("/manam")
+# def manam():
+#     return render_template("manam.html")
+
+
+# @views.route("/process", methods=["POST"])
+# def process():
+#     data = request.form["data"]
+#     result = my_function(data)
+#     return render_template("result.html", result=result)
+
+
+@views.route("/manam", methods=["GET", "POST"])
 def manam():
-    return render_template("manam.html")
-
-
-@views.route("/process", methods=["POST"])
-def process():
-    data = request.form["data"]
-    result = my_function(data)
-    return render_template("result.html", result=result)
+    result = None
+    if request.method == "POST":
+        data = request.form["data"]
+        result = my_function(data)
+    return render_template("manam.html", result=result)
