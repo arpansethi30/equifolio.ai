@@ -4,6 +4,17 @@ from .models import ContactUs
 from . import db
 import json
 
+# from my_module import my_function
+import sys
+from pathlib import Path
+
+# Add the current directory to the Python import paths
+current_directory = Path(__file__).resolve().parent
+sys.path.append(str(current_directory))
+
+# Import your function
+from my_module import my_function
+
 views = Blueprint("views", __name__)
 
 
@@ -59,3 +70,15 @@ def contact():
 @views.route("/about", methods=["GET", "POST"])
 def about():
     return render_template("AboutUs.html", user=current_user)
+
+
+@views.route("/manam")
+def manam():
+    return render_template("manam.html")
+
+
+@views.route("/process", methods=["POST"])
+def process():
+    data = request.form["data"]
+    result = my_function(data)
+    return render_template("result.html", result=result)
