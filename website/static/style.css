@@ -543,3 +543,51 @@ ul li a:hover {
     padding: 0.5rem;
     font-size: 1rem;
 }
+
+/* New styles for search functionality */
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.search-container h1 {
+    color: #f8f8f8;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.search-container form {
+    display: inline-block;
+}
+
+.search-container input[type="text"] {
+    background-color: #333;
+    border: 2px solid #191970;
+    color: #f8f8f8;
+    font-size: 16px;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    width: 70%;
+}
+
+.search-container input[type="text"]:focus {
+    outline: none;
+    border-color: #555;
+}
+
+.search-container button {
+    background-color: #191970;
+    border: none;
+    color: #f8f8f8;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 8px 16px;
+    transition: 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #555;
+}

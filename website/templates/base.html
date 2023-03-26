@@ -23,8 +23,8 @@
         <ul>
           <li><a href="{{ url_for('views.home')}}">HOME</a></li>
           <li><a href="{{ url_for('views.portfolio')}}">Portfolio</a></li>
-          <li><a href="{{ url_for('views.boxes')}}">Boxes</a></li>
-          <li><a href="{{ url_for('views.investopedia')}}">Investopedia</a></li>
+          <li><a href="{{ url_for('views.pricing')}}">Pricing</a></li>
+          <li><a href="{{ url_for('views.stock_analysis')}}">Stocks</a></li>
           <li><a href="{{ url_for('views.contact')}}">CONTACT</a></li>
           <li><a href="{{ url_for('views.about')}}">About Us</a></li>
           {% if user.is_authenticated %}
@@ -34,10 +34,7 @@
         </ul>
       </div>
 
-      <div class="search">
-        <input class="srch" type="search" name="" placeholder="Search Script">
-        <a href="#"> <button class="btn">Search</button></a>
-      </div>
+
 
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if

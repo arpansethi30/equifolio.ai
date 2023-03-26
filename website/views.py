@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from .models import ContactUs
 from . import db
@@ -106,18 +106,17 @@ def portfolio():
     return render_template("portfolio.html", user=current_user)
 
 
-@views.route("/boxes", methods=["GET", "POST"])
-def boxes():
-    return render_template("boxes.html", user=current_user)
+@views.route("/pricing", methods=["GET", "POST"])
+def pricing():
+    return render_template("pricing.html", user=current_user)
 
 
-@views.route("/investopedia", methods=["GET", "POST"])
-def investopedia():
-    result = None
+@views.route("/stock_analysis", methods=["GET", "POST"])
+def stock_analysis():
     if request.method == "POST":
-        data = request.form["data"]
-        result = my_function(data)
-    return render_template("investopedia.html", result=result, user=current_user)
+        symbol = request.form.get("symbol")
+        return render_template("stock_analysis.html", symbol=symbol, user=current_user)
+    return render_template("stock_analysis_form.html", user=current_user)
 
 
 @views.route("/contact", methods=["GET", "POST"])
