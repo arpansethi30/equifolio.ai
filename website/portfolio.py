@@ -61,7 +61,7 @@ nifty50_tickers = [
 def get_stock_data(tickers):
     data = {}
     for ticker in tickers:
-        stock_data = yf.download(ticker, start="2013-01-01", end="2023-01-01")
+        stock_data = yf.download(ticker, start="2013-01-01", end="2023-03-21")
         data[ticker] = stock_data["Adj Close"]
     return pd.DataFrame(data)
 

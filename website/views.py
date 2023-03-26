@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .models import ContactUs
 from . import db
 import json
+
 import pandas as pd
 import yfinance as yf
 from pypfopt import EfficientFrontier, risk_models, expected_returns
@@ -38,68 +39,6 @@ def graph():
 def home():
     return render_template("index.html", user=current_user)
 
-
-@views.route("/portfolio", methods=["GET", "POST"])
-def portfolio():
-    return render_template("portfolio.html", user=current_user)
-
-
-@views.route("/boxes", methods=["GET", "POST"])
-def boxes():
-    return render_template("boxes.html", user=current_user)
-
-
-@views.route("/investopedia", methods=["GET", "POST"])
-def investopedia():
-    result = None
-    if request.method == "POST":
-        data = request.form["data"]
-        result = my_function(data)
-    return render_template("investopedia.html", result=result, user=current_user)
-
-
-@views.route("/contact", methods=["GET", "POST"])
-def contact():
-    if request.method == "POST":
-        ContactUs = request.form.get("ContactUs")  # Gets the ContactUs from the HTML
-
-        if len(ContactUs) < 1:
-            flash("ContactUs is too short!", category="error")
-        else:
-            new_ContactUs = ContactUs(
-                data=ContactUs, user_id=current_user.id
-            )  # providing the schema for the ContactUs
-            db.session.add(new_ContactUs)  # adding the ContactUs to the database
-            db.session.commit()
-            flash("ContactUs added!", category="success")
-
-    return render_template("contact.html", user=current_user)
-
-
-@views.route("/about", methods=["GET", "POST"])
-def about():
-    return render_template("AboutUs.html", user=current_user)
-
-
-# @views.route("/manam")
-# def manam():
-#     return render_template("manam.html")
-
-
-# @views.route("/process", methods=["POST"])
-# def process():
-#     data = request.form["data"]
-#     result = my_function(data)
-#     return render_template("result.html", result=result)
-
-
-# @views.route("/manam", methods=["GET", "POST"])
-# def manam():
-#     result = None
-#     if request.method == "POST":
-#         data = int(request.form["data"])
-#         result = generate_portfolio()
-#     return render_template("manam.html", result=result)
 
 nifty50_tickers = [
     "ADANIENT.NS",
@@ -155,26 +94,78 @@ nifty50_tickers = [
 ]
 
 
-@views.route("/manam", methods=["GET", "POST"])
-def manam():
+@views.route("/portfolio", methods=["GET", "POST"])
+def portfolio():
     if request.method == "POST":
         investment_amount = float(request.form["investment_amount"])
         stock_data = get_stock_data(nifty50_tickers)
         allocation, leftover = optimize_portfolio(stock_data, investment_amount)
-        return render_template("result.html", allocation=allocation, leftover=leftover)
-    return render_template("manam.html")
+        return render_template(
+            "result.html", allocation=allocation, leftover=leftover, user=current_user
+        )
+    return render_template("portfolio.html", user=current_user)
 
 
-@views.route("/searchscript", methods=["GET", "POST"])
-def searchscript():
-    stock_data = None
-    error = None
+@views.route("/boxes", methods=["GET", "POST"])
+def boxes():
+    return render_template("boxes.html", user=current_user)
+
+
+@views.route("/investopedia", methods=["GET", "POST"])
+def investopedia():
+    result = None
     if request.method == "POST":
-        stock_symbol = request.form["stock_symbol"]
-        if stock_symbol.strip():
-            stock_data = get_stock_data(stock_symbol)
-            if not stock_data:
-                error = "Stock symbol not found"
+        data = request.form["data"]
+        result = my_function(data)
+    return render_template("investopedia.html", result=result, user=current_user)
+
+
+@views.route("/contact", methods=["GET", "POST"])
+def contact():
+    return render_template("contact.html", user=current_user)
+
+
+@views.route("/about", methods=["GET", "POST"])
+def about():
+    return render_template("AboutUs.html", user=current_user)
+
+
+# @views.route("/search", methods=["GET"])
+# def search_stocks():
+#     search_query = request.args.get("q")
+#     if search_query:
+#         stock = yf.Ticker(f"{search_query}.NS")
+#         if stock.info:
+#             stock_info = {
+#                 "symbol": stock.info["symbol"],
+#                 "name": stock.info["longName"],
+#                 "price": round(stock.info["regularMarketPrice"], 2),
+#                 "change": round(stock.info["regularMarketChange"], 2),
+#                 "percent_change": round(stock.info["regularMarketChangePercent"], 2),
+#             }
+#             return render_template("search.html", stock_info=stock_info)
+#         else:
+#             return render_template("search.html", error="Unable to fetch stock data.")
+#     else:
+#         return render_template("search.html", error="Missing search query.")
+
+
+@views.route("/search", methods=["GET", "POST"])
+def search():
+    if request.method == "POST":
+        symbol = request.form["symbol"]
+        ticker = yf.Ticker(symbol)
+        if ticker.info:
+            return render_template("search_results.html", symbol=symbol)
         else:
-            error = "Please enter a stock symbol"
-    return render_template("searchscript.html", stock_data=stock_data, error=error)
+            return render_template("search.html", error="Invalid symbol")
+    else:
+        return render_template("search.html")
+
+
+@views.route("/search_results")
+def search_results():
+    symbol = request.args.get("symbol")
+    ticker = yf.Ticker(symbol)
+    info = ticker.info
+    return render_template("search_results.html", symbol=symbol, info=info)

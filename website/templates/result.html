@@ -1,35 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Optimizer - Result</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+{% block content %}
 
-<body>
-    <div class="container">
-        <h1 class="mt-4 mb-4">Optimized Portfolio</h1>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Stock</th>
-                    <th>Shares</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stock, shares in allocation.items() %}
-                <tr>
-                    <td>{{ stock }}</td>
-                    <td>{{ shares }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <h2 class="mb-3">Leftover Amount: {{ leftover }}</h2>
-        <a href="/" class="btn btn-primary">Optimize Another Portfolio</a>
-    </div>
-</body>
-
-</html>
+<div class="container">
+    <h1 class="mt-4 mb-4">Optimized Portfolio</h1>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Stock</th>
+                <th>Shares</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock, shares in allocation.items() %}
+            <tr>
+                <td>{{ stock }}</td>
+                <td>{{ shares }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2 class="mb-3">Leftover Amount: {{ leftover }}</h2>
+    <a href="/" class="btn btn-primary optimize-another">Optimize Another Portfolio</a>
+</div>
+{% endblock %}
