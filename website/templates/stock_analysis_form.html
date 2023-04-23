@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Enter stock symbol:</h2>
-<form action="/stock_analysis" method="post">
-    <input type="text" name="symbol" required>
-    <button type="submit">Submit</button>
-</form>
+<div class="watchlist-container">
+    <h1 class="watchlist-title">Enter stock symbol:</h1>
+    <form class="watchlist-form" action="/stock_analysis" method="post">
+        <input type="text" name="symbol" required>
+        <button type="submit">Search Stock</button>
+    </form>
+</div>
 {% endblock %}

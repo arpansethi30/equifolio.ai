@@ -18,8 +18,9 @@
 
 .navbar {
     width: 1920px;
-    height: 80px;
+    height: 100px;
     margin: auto;
+    background: linear-gradient(to right, rgba(142, 180, 238, 0.5)5%, rgba(142, 180, 238, 0.5)5%);
 }
 
 .equi {
@@ -675,4 +676,15 @@ ul li a:hover {
 
 .watchlist-table a:hover {
     text-decoration: underline;
+}
+
+.widgets-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.tradingview-widget-container {
+    flex: 1;
 }

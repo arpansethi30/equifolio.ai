@@ -31,10 +31,10 @@ def index():
     return render_template("index.html", user=current_user)
 
 
-@views.route("/dashboard", methods=["GET"])
+@views.route("/logged", methods=["GET"])
 @login_required
 def dashboard():
-    return render_template("dashboard.html", user=current_user)
+    return render_template("watchlist.html", user=current_user)
 
 
 @views.route("/graph", methods=["GET", "POST"])
