@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, flash, jsonify
+from flask import Blueprint, render_template, request, url_for, flash, jsonify, redirect
 from flask_login import login_required, current_user
 from .models import ContactUs
 from . import db
@@ -26,7 +26,15 @@ views = Blueprint("views", __name__)
 
 @views.route("/", methods=["GET", "POST"])
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for("views.dashboard"))
     return render_template("index.html", user=current_user)
+
+
+@views.route("/dashboard", methods=["GET"])
+@login_required
+def dashboard():
+    return render_template("dashboard.html", user=current_user)
 
 
 @views.route("/graph", methods=["GET", "POST"])
@@ -35,7 +43,7 @@ def graph():
     return render_template("graph.html", user=current_user)
 
 
-@views.route("/equifolio.ai", methods=["GET", "POST"])
+@views.route("/", methods=["GET", "POST"])
 def home():
     return render_template("index.html", user=current_user)
 
