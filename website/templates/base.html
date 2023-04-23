@@ -30,9 +30,9 @@
           <li><a href="{{ url_for('views.contact')}}">CONTACT</a></li>
           <li><a href="{{ url_for('views.about')}}">About Us</a></li>
           {% if user.is_authenticated %}
+          <li><a href="{{ url_for('views.view_watchlist')}}">Watchlist</a></li> <!-- Add this line -->
           <li><a class="nav-item nav-link" id="logout" href="/logout">Logout</a></li>
           {% endif %}
-
         </ul>
       </div>
 

@@ -590,3 +590,89 @@ ul li a:hover {
 .search-container button:hover {
     background-color: #555;
 }
+
+/* Watchlist */
+.watchlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.watchlist-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.watchlist-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.watchlist-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.watchlist-form button {
+    background-color: #56ccf2;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.watchlist-form button:hover {
+    background-color: #2f80ed;
+}
+
+.watchlist-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.watchlist-table thead {
+    background-color: #f7f7f7;
+}
+
+.watchlist-table th,
+.watchlist-table td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.watchlist-table tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.watchlist-table tr:hover {
+    background-color: #f0f0f0;
+}
+
+.watchlist-table .symbol {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2f80ed;
+}
+
+.watchlist-table .latest-price,
+.watchlist-table .change {
+    font-size: 1rem;
+}
+
+.watchlist-table a {
+    color: #eb5757;
+    text-decoration: none;
+}
+
+.watchlist-table a:hover {
+    text-decoration: underline;
+}

@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, request, url_for, flash, jsonify, redirect
 from flask_login import login_required, current_user
-from .models import ContactUs
+from .models import ContactUs, User, WatchlistItem
 from . import db
 import json
-
 import pandas as pd
 import yfinance as yf
 from pypfopt import EfficientFrontier, risk_models, expected_returns
 from pypfopt.discrete_allocation import DiscreteAllocation, get_latest_prices
+from datetime import timedelta
 
 # from my_module import my_function
 import sys
@@ -176,3 +176,86 @@ def search_results():
     ticker = yf.Ticker(symbol)
     info = ticker.info
     return render_template("search_results.html", symbol=symbol, info=info)
+
+
+@views.route("/add_stock_to_watchlist", methods=["POST"])
+@login_required
+def add_stock_to_watchlist():
+    stock_symbol = request.form.get("stock_symbol")
+    if not stock_symbol:
+        flash("Stock symbol cannot be empty.", category="error")
+    else:
+        new_watchlist_item = WatchlistItem(
+            stock_symbol=stock_symbol, user_id=current_user.id
+        )
+        db.session.add(new_watchlist_item)
+        db.session.commit()
+        flash("Stock added to watchlist!", category="success")
+    return redirect(url_for("views.view_watchlist"))
+
+
+def get_stock_price_data(stock_symbol):
+    stock = yf.Ticker(stock_symbol)
+    history = stock.history(period="6mo")
+    return history
+
+
+def calculate_percentage_change(current_price, past_price):
+    change = ((current_price - past_price) / past_price) * 100
+    return round(change, 2)
+
+
+@views.route("/view_watchlist")
+@login_required
+def view_watchlist():
+    user_watchlist = WatchlistItem.query.filter_by(user_id=current_user.id).all()
+    stock_data = []
+
+    for watchlist_item in user_watchlist:
+        stock_history = get_stock_price_data(watchlist_item.stock_symbol)
+        latest_price = stock_history.iloc[-1]["Close"]
+        day_change = calculate_percentage_change(
+            latest_price, stock_history.iloc[-2]["Close"]
+        )
+        week_change = calculate_percentage_change(
+            latest_price, stock_history.iloc[-6]["Close"]
+        )
+        month_change = calculate_percentage_change(
+            latest_price, stock_history.iloc[-21]["Close"]
+        )
+        six_month_change = calculate_percentage_change(
+            latest_price, stock_history.iloc[0]["Close"]
+        )
+
+        stock_data.append(
+            {
+                "id": watchlist_item.id,
+                "symbol": watchlist_item.stock_symbol,
+                "latest_price": latest_price,
+                "day_change": day_change,
+                "week_change": week_change,
+                "month_change": month_change,
+                "six_month_change": six_month_change,
+            }
+        )
+
+    return render_template("watchlist.html", user=current_user, stock_data=stock_data)
+
+
+@views.route("/remove_stock_from_watchlist/<int:watchlist_item_id>")
+@login_required
+def remove_stock_from_watchlist(watchlist_item_id):
+    watchlist_item = WatchlistItem.query.get(watchlist_item_id)
+    if watchlist_item:
+        if watchlist_item.user_id == current_user.id:
+            db.session.delete(watchlist_item)
+            db.session.commit()
+            flash("Stock removed from watchlist.", category="success")
+        else:
+            flash(
+                "You do not have permission to remove this stock from the watchlist.",
+                category="error",
+            )
+    else:
+        flash("Stock not found in watchlist.", category="error")
+    return redirect(url_for("views.view_watchlist"))

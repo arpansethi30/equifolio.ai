@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="watchlist-container">
+    <h1 class="watchlist-title">Watchlist</h1>
+    <form class="watchlist-form" action="{{ url_for('views.add_stock_to_watchlist') }}" method="post">
+        <input type="text" name="stock_symbol" placeholder="Stock Symbol">
+        <button type="submit">Add Stock to Watchlist</button>
+    </form>
+    <table class="watchlist-table">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Latest Price</th>
+                <th>Day Change</th>
+                <th>Week Change</th>
+                <th>Month Change</th>
+                <th>Six Month Change</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stock_data %}
+            <tr>
+                <td class="symbol">{{ stock.symbol }}</td>
+                <td class="latest-price">{{ stock.latest_price }}</td>
+                <td class="change">{{ stock.day_change }}%</td>
+                <td class="change">{{ stock.week_change }}%</td>
+                <td class="change">{{ stock.month_change }}%</td>
+                <td class="change">{{ stock.six_month_change }}%</td>
+                <td><a href="{{ url_for('views.remove_stock_from_watchlist', watchlist_item_id=stock.id) }}">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
