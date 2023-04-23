@@ -473,7 +473,6 @@ ul li a:hover {
     margin-bottom: 20px;
 }
 
-
 .portfolio {
     width: 100%;
     max-width: 800px;
@@ -488,27 +487,31 @@ ul li a:hover {
     margin-bottom: 30px;
 }
 
-.portfolio form {
+.portfolio .portfolio-form {
     display: inline-block;
+    text-align: left;
 }
 
 .portfolio label {
     color: #f8f8f8;
     font-weight: bold;
-    margin-right: 10px;
+    display: block;
+    margin-top: 10px;
 }
 
-.portfolio input[type="number"] {
+.portfolio input[type="number"],
+.portfolio select.form-control {
     background-color: #333;
     border: 2px solid #191970;
     color: #f8f8f8;
     font-size: 16px;
     padding: 5px 10px;
     margin-bottom: 15px;
-    width: 200px;
+    width: 100%;
 }
 
-.portfolio input[type="number"]:focus {
+.portfolio input[type="number"]:focus,
+.portfolio select.form-control:focus {
     outline: none;
     border-color: #555;
 }
@@ -521,6 +524,9 @@ ul li a:hover {
     font-size: 18px;
     padding: 8px 16px;
     transition: 0.3s;
+    display: block;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .optimize:hover {

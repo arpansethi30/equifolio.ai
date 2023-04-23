@@ -101,12 +101,66 @@ nifty50_tickers = [
     "WIPRO.NS",
 ]
 
+niftymidcap = [
+    "ABB.NS",
+    "AUBANK.NS",
+    "ABBOTINDIA.NS",
+    "ALKEM.NS",
+    "ASHOKLEY.NS",
+    "ASTRAL.NS",
+    "AUROPHARMA.NS",
+    "BALKRISIND.NS",
+    "BATAINDIA.NS",
+    "BHARATFORG.NS",
+    "CANBK.NS",
+    "COFORGE.NS",
+    "CONCOR.NS",
+    "CUMMINSIND.NS",
+    "ESCORTS.NS",
+    "FEDERALBNK.NS",
+    "GODREJPROP.NS",
+    "GUJGASLTD.NS",
+    "HINDPETRO.NS",
+    "HONAUT.NS",
+    "IDFCFIRSTB.NS",
+    "INDHOTEL.NS",
+    "JINDALSTEL.NS",
+    "JUBLFOOD.NS",
+    "LTTS.NS",
+    "LICHSGFIN.NS",
+    "LUPIN.NS",
+    "MRF.NS",
+    "M&MFIN.NS",
+    "MFSL.NS",
+    "OBEROIRLTY.NS",
+    "OFSS.NS",
+    "PAGEIND.NS",
+    "PERSISTENT.NS",
+    "PETRONET.NS",
+    "POLYCAB.NS",
+    "PFC.NS",
+    "PNB.NS",
+    "RECLTD.NS",
+    # "SRTRANSFIN.NS",
+    "SAIL.NS",
+    "TVSMOTOR.NS",
+    "TATACOMM.NS",
+    "TORNTPOWER.NS",
+    "TRENT.NS",
+    "UBL.NS",
+    "IDEA.NS",
+    "VOLTAS.NS",
+    "ZEEL.NS",
+    "ZYDUSLIFE.NS",
+]
+
 
 @views.route("/portfolio", methods=["GET", "POST"])
 def portfolio():
     if request.method == "POST":
         investment_amount = float(request.form["investment_amount"])
-        stock_data = get_stock_data(nifty50_tickers)
+        risk_preference = request.form["risk_preference"]
+        stock_data = get_stock_data(nifty50_tickers, niftymidcap, risk_preference)
         allocation, leftover = optimize_portfolio(stock_data, investment_amount)
         return render_template(
             "result.html", allocation=allocation, leftover=leftover, user=current_user

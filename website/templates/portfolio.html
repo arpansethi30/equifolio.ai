@@ -1,9 +1,17 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
 <div class="portfolio">
     <h1>Portfolio Optimizer</h1>
-    <form method="POST" action="/portfolio">
+    <form class="portfolio-form">
         <label for="investment_amount">Investment Amount:</label>
         <input type="number" id="investment_amount" name="investment_amount" step="any" required>
+
+        <label for="risk_preference">Risk Preference:</label>
+        <select id="risk_preference" name="risk_preference" class="form-control" required>
+            <option value="nifty50">Option 1 (Nifty50)</option>
+            <option value="niftymidcap">Option 2 (Nifty Midcap)</option>
+            <option value="both">Option 3 (Both Nifty50 and Nifty Midcap)</option>
+        </select>
+
         <input class="optimize" type="submit" value="Optimize Portfolio">
     </form>
 </div>

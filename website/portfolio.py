@@ -97,7 +97,7 @@ niftymidcap = [
     "PFC.NS",
     "PNB.NS",
     "RECLTD.NS",
-    "SRTRANSFIN.NS",
+    # "SRTRANSFIN.NS",
     "SAIL.NS",
     "TVSMOTOR.NS",
     "TATACOMM.NS",
@@ -111,7 +111,16 @@ niftymidcap = [
 ]
 
 
-def get_stock_data(tickers):
+def get_stock_data(nifty50_tickers, niftymidcap, risk_preference):
+    tickers = []
+
+    if risk_preference == "nifty50":
+        tickers = nifty50_tickers
+    elif risk_preference == "niftymidcap":
+        tickers = niftymidcap
+    elif risk_preference == "both":
+        tickers = nifty50_tickers + niftymidcap
+
     data = {}
     for ticker in tickers:
         stock_data = yf.download(ticker, start="2013-01-01", end="2023-03-21")
