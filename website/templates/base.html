@@ -70,5 +70,16 @@
 
 
 </body>
+{% block widget %}{% endblock %}
+<style>
+  .tradingview-widget-container {
+    position: fixed;
+    /* Change the values below according to your preference */
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    /* To keep the widget on top of other elements */
+  }
+</style>
 
 </html>
