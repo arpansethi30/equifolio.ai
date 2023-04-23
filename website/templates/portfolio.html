@@ -1,2 +1,10 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<div class="portfolio">
+    <h1>Portfolio Optimizer</h1>
+    <form method="POST" action="/portfolio">
+        <label for="investment_amount">Investment Amount:</label>
+        <input type="number" id="investment_amount" name="investment_amount" step="any" required>
+        <input class="optimize" type="submit" value="Optimize Portfolio">
+    </form>
+</div>
 {% endblock %}

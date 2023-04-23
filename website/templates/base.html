@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/style.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 </head>
 
 <body>
@@ -22,8 +23,8 @@
         <ul>
           <li><a href="{{ url_for('views.home')}}">HOME</a></li>
           <li><a href="{{ url_for('views.portfolio')}}">Portfolio</a></li>
-          <li><a href="{{ url_for('views.boxes')}}">Boxes</a></li>
-          <li><a href="{{ url_for('views.investopedia')}}">Investopedia</a></li>
+          <li><a href="{{ url_for('views.pricing')}}">Pricing</a></li>
+          <li><a href="{{ url_for('views.stock_analysis')}}">Stocks</a></li>
           <li><a href="{{ url_for('views.contact')}}">CONTACT</a></li>
           <li><a href="{{ url_for('views.about')}}">About Us</a></li>
           {% if user.is_authenticated %}
@@ -33,10 +34,7 @@
         </ul>
       </div>
 
-      <div class="search">
-        <input class="srch" type="search" name="" placeholder="Search Script">
-        <a href="#"> <button class="btn">Search</button></a>
-      </div>
+
 
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -68,18 +66,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
 
-    {% block javascript %}
-    <script type="text/javascript">
-      function deleteNote(noteId) {
-        fetch("/delete-note", {
-          method: "POST",
-          body: JSON.stringify({ noteId: noteId }),
-        }).then((_res) => {
-          window.location.href = "/";
-        });
-      }
-    </script>
-    {% endblock %}
+
 </body>
 
 </html>

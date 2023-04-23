@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Search for a Stock</h1>
+    <form method="POST" action="{{ url_for('search_results') }}">
+        <div class="form-group">
+            <label for="symbol">Stock Symbol</label>
+            <input type="text" class="form-control" id="symbol" name="symbol" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+{% endblock %}

@@ -3,6 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
+# import firebase_admin
+# from firebase_admin import credentials
+
+# cred = credentials.Certificate("website/firebasekey.json")
+# default_app = initialize_app(cred)
+
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
